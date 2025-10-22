@@ -9,21 +9,24 @@ var POSSIBLE_WORDS = [
 ];
 
 var word = "";
-var guess = "";
-
+var guesses = "";
+var MAX_GUESSES = 6;
+var guess_coount = 0;
 function newGame() {
   var randomIndex = parseInt(Math.random() * POSSIBLE_WORDS.length);
   word = POSSIBLE_WORDS[randomIndex];
   guesses = "";
-
+  guess_coount = MAX_GUESSES;
   updatepage();
 }
 
 function guessLetter() {
   var input = document.getElementById("guess");
   var letter = input.value;
+  if (word.indexOf(letter) < 0) {
+    guess_coount--;
+  }
   guesses += letter;
-
   updatepage();
 }
 
@@ -37,4 +40,10 @@ function updatepage() {
   }
   var clue = document.getElementById("clue");
   clue.innerHTML = clueString;
+
+  var guessArea = document.getElementById("guesses");
+  guessArea.innerHTML = "Guessed Letter " + guesses;
+
+  var image = document.getElementById("hangmanImage");
+  image.src = "images/hangman" + guess_coount + ".gif";
 }

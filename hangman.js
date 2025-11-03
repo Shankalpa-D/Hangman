@@ -20,6 +20,7 @@ function newGame() {
   guesses = "";
   guess_count = MAX_GUESSES;
   updatepage();
+  gameActive = true;
 }
 
 function guessLetter() {
@@ -49,18 +50,20 @@ function guessLetter() {
   updatepage();
   
   //Dialog for winning and losing -> guesses area. 
- if (clueString.indexOf("_") < 0) {
-  gameActive = false;
-  guessArea.innerHTML = "You won!";
-  return;
-}
+  var clueElement = document.getElementById("clue");
+  if (clueElement.textContent.indexOf("_") < 0) {
+    gameActive = false;
+    document.getElementById("guesses").innerHTML = "You won!";
+    return;
+  }
   
   // Check for loss
   if (guess_count <= 0) {
     gameActive = false;
-    guessArea.innerHTML = "You lost!";
+    document.getElementById("guesses").innerHTML = "You lost!";
   }
-}
+  }
+
 
 function updatepage() {
   var clueString = "";
